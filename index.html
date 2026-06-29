@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Portal de Acesso aos Exames</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+    <!-- Font Awesome 4.4.0 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    
+    <!-- iCheck -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck/1.0.2/skins/square/blue.css">
+    
+    <!-- Google Font Montserrat -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: url('images/bg-login.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-page {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-box {
+            width: 360px;
+            margin-bottom: 20px;
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-logo img {
+            height: 53px;
+        }
+        
+        .portal-title {
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .login-box-body {
+            background: white;
+            padding: 30px;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-tabs {
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 20px;
+        }
+        
+        .nav-tabs > li > a {
+            color: #666;
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 0;
+        }
+        
+        .nav-tabs > li.active > a,
+        .nav-tabs > li.active > a:hover {
+            background-color: transparent;
+            border: none;
+            border-bottom: 3px solid #095a53;
+            color: #095a53;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+        
+        .form-control:focus {
+            border-color: #095a53;
+            box-shadow: 0 0 0 0.2rem rgba(9, 90, 83, 0.25);
+        }
+        
+        .input-group-addon {
+            background-color: transparent;
+            border: 1px solid #ddd;
+            color: #666;
+        }
+        
+        .form-control:focus + .input-group-addon {
+            border-color: #095a53;
+        }
+        
+        .btn-login {
+            background-color: #095a53;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-login:hover {
+            background-color: #00acd6;
+            color: white;
+        }
+        
+        .login-bottom-links {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .login-bottom-links a {
+            font-size: 12px;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        
+        .link-verde {
+            color: #a0c32e;
+        }
+        
+        .link-verde:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #d9534f;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 12px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .login-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            padding: 15px 30px;
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .login-footer-right {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .login-footer-right img {
+            height: 25px;
+        }
+        
+        .icheckbox_square_blue {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-logo">
+            <img src="images/tecsa.jpg" alt="Tecsa Logo">
+        </div>
+        
+        <div class="portal-title">
+            Portal de Acesso aos Exames
+        </div>
+        
+        <div class="login-box">
+            <div class="login-box-body">
+                <div id="errorMessage" class="error-message">
+                    Usuário ou senha inválidos.
+                </div>
+                
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#tutor" role="tab" data-toggle="tab">Tutor</a></li>
+                    <li><a href="#veterinario" role="tab" data-toggle="tab">Veterinário</a></li>
+                    <li><a href="#clinica" role="tab" data-toggle="tab">Clínica</a></li>
+                </ul>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" id="username" class="form-control" placeholder="Login" required>
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="password" id="password" class="form-control" placeholder="Senha" required>
+                            <span class="input-group-addon">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="rememberMe" class="icheckbox_square_blue">
+                            Lembrar-me
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-login">Entrar</button>
+                </form>
+                
+                <div class="login-bottom-links">
+                    <a href="#" class="link-verde">Esqueci minha senha</a>
+                    <span>|</span>
+                    <a href="#" class="link-verde">Alterar minha senha</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="login-footer">
+        <span>2026 Copyright © - SOFTEASY</span>
+        <div class="login-footer-right">
+            <img src="images/ssl-site-seguro.png" alt="SSL Site Seguro">
+        </div>
+    </footer>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+    <!-- Bootstrap 3.3.5 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+    <!-- iCheck -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/icheck/1.0.2/icheck.min.js"></script>
+    
+    <script>
+        // Initialize iCheck
+        $(function() {
+            $('input[type="checkbox"]').iCheck({
+                checkboxClass: 'icheckbox_square_blue',
+                radioClass: 'iradio_square_blue',
+                increaseArea: '20%'
+            });
+        });
+        
+        // Valid users array
+        const validUsers = [
+            { login: '007311940', password: '36534830', redirectUrl: 'download_007311940.html' },
+            { login: '007311941', password: '24078104', redirectUrl: 'download_007311941.html' }
+        ];
+        
+        // Hide error message on input or tab switch
+        $('#username, #password').on('input', function() {
+            $('#errorMessage').removeClass('show');
+        });
+        
+        $('.nav-tabs a').on('click', function() {
+            $('#errorMessage').removeClass('show');
+        });
+        
+        // Handle form submission
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            const username = $('#username').val().trim();
+            const password = $('#password').val().trim();
+            
+            // Find user in valid users array
+            const user = validUsers.find(u => u.login === username && u.password === password);
+            
+            if (user) {
+                // Redirect to the appropriate download page
+                window.location.href = user.redirectUrl;
+            } else {
+                // Show error message
+                $('#errorMessage').addClass('show');
+            }
+        });
+    </script>
+</body>
+</html>
