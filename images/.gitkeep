@@ -1,0 +1,5 @@
+# This file ensures the images directory is tracked by git
+# Add your image files here:
+# - bg-login.jpg (background image)
+# - tecsa.jpg (logo)
+# - ssl-site-seguro.png (SSL security seal)
